@@ -1,0 +1,96 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+// Función que genera un vector aleatorio de tamaño n con números entre 0 y 2
+vector<int> randomArray(int n) {
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++) {
+        arr[i] = rand() % 3; // Generar números entre 0 y 2
+    }
+    return arr;
+}
+
+
+// Función color sort
+vector<int> sortColors(vector<int>& nums) {
+        int red = 0, white = 0, blue = 0;
+        for (int num : nums) {
+            if (num == 0) {
+                red++;
+            } else if (num == 1) {
+                white++;
+            } else {
+                blue++;
+            }
+        }
+        int i = 0;
+        while (red > 0) {
+            nums[i++] = 0;
+            red--;
+        }
+        while (white > 0) {
+            nums[i++] = 1;
+            white--;
+        }
+        while (blue > 0) {
+            nums[i++] = 2;
+            blue--;
+        }
+        return sortColors;
+        
+    }
+
+
+// Función que alterna entre 3 métodos para devolver un array en cada caso de prueba
+vector<int> generateTestCase(int n) {
+    int choice = rand() % 4;
+    if (choice == 0) {
+        // Generar un array aleatorio
+        return randomArray(n);
+    } else if (choice == 1) {
+        // Generar un array desordenado
+        vector<int> arr(n);
+        for (int i = 0; i < n; i++) {
+            arr[i] = i + 1;
+        }
+        
+        return arr;
+    } else if (choice == 2){
+        // Generar un array ordenado
+        vector<int> arr(n);
+        int potencia = 1;
+        for (int i = 0; i < n; i++) {
+            arr[i] = potencia;
+            potencia *= 2;
+        }
+        return arr;
+    }
+    else {
+        // Generar un array ordenado
+        vector<int> arr(n);
+        int potencia = 1;
+        for (int i = 0; i < n; i++) {
+            arr[i] = potencia;
+            potencia *= 2;
+        }
+        int k = rand() % n;
+        return sortColors(arr, k);
+    }
+}
+
+int main() {
+    srand(time(NULL));
+    int n = 10 + rand() % 15;
+    for (int i = 0; i < 100; i++) {
+        vector<int> arr = generateTestCase(n);
+        cout << "Test case " << i + 1 << ": " << endl;
+        for (int j = 0; j < n; j++) {
+            cout << arr[j] << ",";
+        }
+        cout << endl;
+    }
+    return 0;
+}
